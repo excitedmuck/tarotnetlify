@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Meta Description -->
+    <meta name="description" content="Discover free tarot readings with mystical insights at The Free Tarot. Explore your destiny with free cosmic spreads and Jungian wisdom!">
+    <meta name="keywords" content="tarot reading, free tarot, mystical insights, Jungian archetypes, cosmic spreads">
+    <meta name="author" content="The Free Tarot">
+    <!-- Open Graph Tags (for social sharing) -->
+    <meta property="og:title" content="Free Tarot Readings | Mystical Tarot de Multiverse">
+    <meta property="og:description" content="Explore your destiny with free tarot readings, cosmic spreads, and Jungian insights at The Free Tarot.">
+    <meta property="og:image" content="https://www.thefreetarot.com/static/images/og-image.jpg">
+    <meta property="og:url" content="https://www.thefreetarot.com/tarot">
+    <meta property="og:type" content="website">
+    <!-- Canonical Tag -->
+    <link rel="canonical" href="https://www.thefreetarot.com/tarot">
+    <!-- Title -->
+    <title>Free Tarot Readings | Mystical Tarot de Multiverse</title>
+    <!-- Google Fonts for Typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    <!-- Professional CSS with Dark Purple Theme -->
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #2c1b47 0%, #0d0619 100%);
+            color: #e6d6ff;
+            overflow-x: hidden;
+        }
+        /* Starry Background Animation */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900"><g fill="rgba(255,255,255,0.3)" fill-opacity="0.6"><circle cx="100" cy="100" r="3"/><circle cx="300" cy="200" r="2"/><circle cx="500" cy="150" r="4"/><circle cx="700" cy="300" r="3"/><circle cx="900" cy="250" r="2"/><circle cx="1100" cy="350" r="3"/><circle cx="1300" cy="400" r="2"/><circle cx="200" cy="500" r="3"/><circle cx="400" cy="600" r="2"/><circle cx="600" cy="550" r="4"/><circle cx="800" cy="700" r="3"/><circle cx="1000" cy="650" r="2"/></g></svg>');
+            animation: twinkle 5s infinite;
+            z-index: -1;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        /* Hero Section */
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        .hero .container {
+            max-width: 700px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .hero .logo {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .hero .logo svg {
+            width: 100%;
+            height: 100%;
+        }
+        .hero h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8em;
+            color: #d4a5ff;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .hero p {
+            font-size: 1.1em;
+            color: #c3b1e1;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+        .hero a, .cta-section a {
+            display: inline-block;
+            padding: 12px 35px;
+            background: linear-gradient(90deg, #8e44ad, #c0392b);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 400;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .hero a:hover, .cta-section a:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(90deg, #c0392b, #8e44ad);
+        }
+        /* Jungian Section */
+        .jungian-section {
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+        .jungian-section .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background: rgba(44, 27, 71, 0.3);
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+        }
+        .jungian-section h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 2em;
+            color: #d4a5ff;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .jungian-section p {
+            font-size: 1.1em;
+            color: #c3b1e1;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        .jungian-section .external-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .jungian-section .external-link a {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #6c3483;
+            color: #e6d6ff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 400;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .jungian-section .external-link a:hover {
+            background: #9b59b6;
+            color: #fff;
+        }
+        /* CTA Section */
+        .cta-section {
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .cta-section .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        /* Footer */
+        footer {
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+            font-size: 0.9em;
+            color: #a0a0a0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="logo">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Crescent Moon -->
+                    <path d="M50 20 C70 20 80 40 80 50 C80 60 70 80 50 80 C30 80 20 60 20 50 C20 40 30 20 50 20 Z M50 30 C65 30 75 40 75 50 C75 60 65 70 50 70 C35 70 25 60 25 50 C25 40 35 30 50 30 Z" fill="#d4a5ff" stroke="#f1c40f" stroke-width="2"/>
+                    <!-- Star -->
+                    <polygon points="50,10 58,35 85,35 62,50 70,75 50,60 30,75 38,50 15,35 42,35" fill="#f1c40f" transform="scale(0.5) translate(50, 50)"/>
+                </svg>
+            </div>
+            <h1>✨ The Free Tarot: A Cosmic Dance of Destiny ✨</h1>
+            <p>In autopoeisis poetry of code and word, I weave stardust threads to whisper truths absurd. Unveil your path with free mystical tarot spreads.</p>
+            <a href="https://tarotnet.streamlit.app" target="_blank">Embark on Your Free Cosmic Journey</a>
+        </div>
+    </section>
+
+    <!-- Jungian Perspective Section -->
+    <section class="jungian-section">
+        <div class="container">
+            <h2>🌌 Tarot Through the Lens of Jungian Wisdom 🌌</h2>
+            <p>In the tapestry of the psyche, tarot cards bloom as more than mere divination tools—they are celestial mirrors for introspection and self-discovery, spun from the threads of Carl Jung’s depth psychology. Here, archetypes dance, universal symbols that hum within the collective unconscious, reflecting the timeless themes and inner conflicts of the human spirit.</p>
+            <p>Jung taught that archetypes are the innate whispers of ideas, guiding us to interpret the cosmos within. Each tarot card, a shimmering archetype, bridges the conscious mind to the shadowed depths of the psyche. When you draw a card, you summon these universal echoes, weaving a dialogue between your personal saga and the broader human odyssey.</p>
+            <p>In psychoanalysis, tarot becomes a sacred tool to unearth the subconscious. Its imagery and symbols invite you to project your inner thoughts and emotions, revealing patterns hidden in the stardust of your soul. This mirrors therapeutic practices that seek to illuminate the unseen, fostering self-awareness and emotional healing.</p>
+            <p>The structured yet fluid nature of tarot spreads offers a celestial map to navigate your psychological landscapes. By interpreting the cards through the lens of your questions, you uncover motivations, fears, and aspirations, empowering you to shape your destiny with clarity. In this dance of self-discovery, tarot resonates with the core of human psychology, blending Jungian archetypes and psychoanalytic wisdom to connect you with your authentic self.</p>
+            <div class="external-link">
+                <a href="https://labyrinthos.co/blogs/learn-tarot-with-labyrinthos-academy/carl-jung-and-jungian-archetypes-in-the-tarot-the-various-aspects-of-our-selves" target="_blank">Explore Jungian Archetypes in Tarot</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section with Second Button -->
+    <section class="cta-section">
+        <div class="container">
+            <a href="https://tarotnet.streamlit.app" target="_blank">Dive into Your Free Tarot Reading Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2025 The Free Tarot. Crafted with cosmic care.</p>
+    </footer>
+</body>
+</html>
