@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /tarot
+Allow: /sitemap.xml
+Sitemap: https://www.thefreetarot.com/sitemap.xml
