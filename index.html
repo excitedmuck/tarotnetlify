@@ -10,13 +10,13 @@
     <!-- Open Graph Tags -->
     <meta property="og:title" content="The Free Tarot | Jungian Tarot Analysis">
     <meta property="og:description" content="Dive into free tarot readings with Jungian insights and cosmic spreads at The Free Tarot.">
-    <meta property="og:image" content="https://www.thefreetarot.com/static/images/og-image.jpg">
-    <meta property="og:url" content="https://www.thefreetarot.com/tarot">
+    <meta property="og:image" content="https://freetarott.netlify.app/static/images/og-image.jpg">
+    <meta property="og:url" content="https://freetarott.netlify.app/">
     <meta property="og:type" content="website">
     <!-- Canonical Tag -->
-    <link rel="canonical" href="https://www.thefreetarot.com/tarot">
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://www.thefreetarot.com/static/images/favicon.ico">
+    <link rel="canonical" href="https://freetarott.netlify.app/">
+    <!-- Favicon (PNG relative to deployment root) -->
+    <link rel="icon" type="image/png" href="/static/images/star.png?v=1">
     <!-- Google Tag Manager -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-710G62MY15"></script>
     <script>
@@ -33,7 +33,7 @@
         {
           "@type": "Organization",
           "name": "The Free Tarot",
-          "url": "https://www.thefreetarot.com",
+          "url": "https://freetarott.netlify.app/",
           "sameAs": [
             "https://www.facebook.com/thefreetarot",
             "https://www.twitter.com/thefreetarot",
@@ -53,13 +53,13 @@
             "name": "The Free Tarot",
             "logo": {
               "@type": "ImageObject",
-              "url": "https://www.thefreetarot.com/static/images/og-image.jpg"
+              "url": "https://freetarott.netlify.app/static/images/og-image.jpg"
             }
           },
           "datePublished": "2025-06-20",
           "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https://www.thefreetarot.com/tarot"
+            "@id": "https://freetarott.netlify.app/"
           }
         }
       ]
@@ -221,15 +221,39 @@
 
         .tags {
             margin: 2em 0;
-            font-size: 0.9em;
+            font-size: 1em;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .tags span {
+            color: var(--sidenote-color);
         }
 
         .tags a {
-            margin-right: 10px;
-            padding: 5px 10px;
+            padding: 6px 12px;
             background: var(--bg-color);
             border: 1px solid var(--text-color);
             border-radius: 15px;
+            text-decoration: none;
+            font-size: 1em;
+            line-height: 1.2;
+            min-width: 60px;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .tags {
+                gap: 8px;
+                justify-content: flex-start;
+            }
+            .tags a {
+                padding: 5px 10px;
+                font-size: 0.95em;
+                min-width: 50px;
+            }
         }
 
         footer {
@@ -256,8 +280,13 @@
     <div class="container">
         <!-- Header -->
         <h1>Free Tarot Readings: Jungian Archetypes & Cosmic Insights</h1>
-        <p class="tags">
-            Tags: <a href="#tarot">tarot</a> → <a href="#jungian">Jungian psychology</a> → <a href="#mysticism">mysticism</a>
+        <p class="tags" role="navigation" aria-label="Content tags">
+            <span>Tags:</span>
+            <a href="#tarot">tarot</a>
+            <span>|</span>
+            <a href="#jungian">Jungian psychology</a>
+            <span>|</span>
+            <a href="#mysticism">mysticism</a>
         </p>
 
         <!-- Introduction -->
