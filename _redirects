@@ -1,6 +1,6 @@
 # Redirect root to /tarot
-https://thefreetarot.com/ https://www.thefreetarot.com 301!
-http://thefreetarot.com/ https://www.thefreetarot.com 301!
+#https://thefreetarot.com/ https://www.thefreetarot.com 301!
+#http://thefreetarot.com/ https://www.thefreetarot.com 301!
 # Redirect non-www to www
-http://thefreetarot.com/* https://www.thefreetarot.com/:splat 301!
-https://thefreetarot.com/* https://www.thefreetarot.com/:splat 301!
+#http://thefreetarot.com/* https://www.thefreetarot.com/:splat 301!
+#https://thefreetarot.com/* https://www.thefreetarot.com/:splat 301!
