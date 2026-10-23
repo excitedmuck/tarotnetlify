@@ -256,6 +256,95 @@
             }
         }
 
+
+        /* Reading engine */
+        .reading-controls label {
+            display: block;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.8em;
+            letter-spacing: 0.05em;
+            color: var(--sidenote-color);
+            margin-bottom: 6px;
+        }
+        #question-input {
+            width: 100%;
+            box-sizing: border-box;
+            background: transparent;
+            border: 1px solid var(--sidenote-color);
+            color: var(--text-color);
+            padding: 10px 12px;
+            font-family: 'IBM Plex Serif', serif;
+            font-size: 1em;
+        }
+        #question-input:focus { outline: none; border-color: var(--accent-color); }
+        .spread-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 1em 0; }
+        .spread-btn, #draw-btn {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.85em;
+            background: transparent;
+            border: 1px solid var(--sidenote-color);
+            color: var(--text-color);
+            padding: 8px 14px;
+            cursor: pointer;
+        }
+        .spread-btn.active { border-color: var(--text-color); background: var(--text-color); color: var(--bg-color); }
+        .spread-btn:hover, #draw-btn:hover { border-color: var(--accent-color); }
+        #draw-btn { margin-top: 0.5em; padding: 10px 22px; }
+        .draw-note { font-size: 0.85em; color: var(--sidenote-color); min-height: 1.2em; margin: 0.6em 0 0; }
+        .cards-grid { display: flex; flex-wrap: wrap; gap: 16px 14px; margin: 1.6em 0 0.6em; justify-content: center; }
+        .tcard { width: 110px; }
+        .tcard .pos {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.62em;
+            line-height: 1.35;
+            text-align: center;
+            color: var(--sidenote-color);
+            min-height: 2.8em;
+            margin-bottom: 6px;
+        }
+        .tcard .flipbox { perspective: 900px; }
+        .tcard .flip {
+            position: relative;
+            width: 110px; height: 184px;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.35, 0.1, 0.2, 1);
+        }
+        .tcard.revealed .flip { transform: rotateY(180deg); }
+        .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .face svg { display: block; width: 100%; height: 100%; }
+        .face.front { transform: rotateY(180deg); }
+        .face.front.rev svg { transform: rotate(180deg); }
+        .tcard .cname {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.66em;
+            line-height: 1.3;
+            text-align: center;
+            margin-top: 6px;
+            color: var(--text-color);
+            min-height: 2.6em;
+        }
+        .tcard .cname .revtag { color: var(--sidenote-color); }
+        .interp { margin: 1.2em 0; }
+        .interp p { margin: 0.8em 0; }
+        .interp .closer { color: var(--sidenote-color); font-style: italic; }
+        .saved-item { border: 1px solid var(--sidenote-color); padding: 12px 16px; margin: 0.8em 0; }
+        .saved-item .meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; color: var(--sidenote-color); }
+        .saved-item .q { margin: 0.4em 0; }
+        .saved-item .cardsline { font-size: 0.85em; color: var(--sidenote-color); margin: 0.3em 0; }
+        .saved-item .actions { margin-top: 0.5em; display: flex; gap: 10px; }
+        .saved-item .actions button {
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 0.75em;
+            background: transparent;
+            border: 1px solid var(--sidenote-color);
+            color: var(--text-color);
+            padding: 4px 10px;
+            cursor: pointer;
+        }
+        .saved-item .actions button:hover { border-color: var(--accent-color); }
+        .saved-item .full { display: none; margin-top: 0.6em; border-top: 1px dotted var(--sidenote-color); padding-top: 0.6em; }
+        .saved-item.open .full { display: block; }
+
         footer {
             margin-top: 3em;
             padding: 20px 0;
@@ -292,7 +381,30 @@
         <!-- Introduction -->
         <section id="introduction">
             <p>The Free Tarot explores <a href="#tarot">tarot</a> as a tool for self-discovery, rooted in <span class="popup">Carl Jung’s depth psychology<span class="popup-text">Carl Gustav Jung (1875–1961) developed analytical psychology, emphasizing archetypes and the collective unconscious.</span></span>. This site offers free tarot readings, cosmic spreads, and in-depth analysis, weaving stardust threads of archetype and symbol. <span class="sidenote">Tarot’s history spans centuries, evolving from a card game to a psychological tool.</span></p>
-            <p><a href="https://tarotnet.streamlit.app" target="_blank" rel="nofollow">Begin your free tarot reading</a> to unveil your path.</p>
+            <p><a href="#reading">Begin your free tarot reading</a> to unveil your path.</p>
+        </section>
+
+
+        <!-- Reading Engine -->
+        <section id="reading">
+            <h2>Draw Your Cards</h2>
+            <p>The deck lives on this page now. Seventy-eight cards, three spreads, read entirely in your browser: nothing you ask leaves your device, and every reading is kept below so you can return to it. <span class="sidenote">Readings are stored only in this browser's local storage. Clear your site data and they return to the ether.</span></p>
+            <div class="reading-controls">
+                <label for="question-input">Whisper your question to the cosmos</label>
+                <input type="text" id="question-input" placeholder="love, work, the path..." maxlength="280">
+                <div class="spread-row" id="spread-row"></div>
+                <button id="draw-btn">&#127775; Unveil the spread &#127775;</button>
+                <p class="draw-note" id="draw-note"></p>
+            </div>
+            <div class="cards-grid" id="cards-grid"></div>
+            <div class="interp" id="interp"></div>
+        </section>
+
+        <!-- Saved Readings -->
+        <section id="saved">
+            <h2>Your Saved Readings</h2>
+            <p id="saved-empty">No readings kept yet. Draw one above; it will wait for you here.</p>
+            <div id="saved-list"></div>
         </section>
 
         <!-- Personal Story Section -->
@@ -340,7 +452,7 @@
         <section id="cta">
             <h2>Embark on Your Journey</h2>
             <p>Dive into tarot’s cosmic wisdom with a free reading.</p>
-            <p><a href="https://tarotnet.streamlit.app" target="_blank" rel="nofollow">Start Your Free Tarot Reading Now</a></p>
+            <p><a href="#reading">Start Your Free Tarot Reading Now</a></p>
         </section>
 
         <!-- Footer -->
@@ -374,5 +486,440 @@
             });
         }
     </script>
+
+    <!-- Reading engine -->
+    <script>
+    (function () {
+        'use strict';
+
+        var MAJORS = [
+            ['The Fool', 'a leap before the map exists; innocence as method', 'hesitation dressed up as prudence; the leap refused'],
+            ['The Magician', 'will focused through craft; as above, so below, so build', 'scattered force; talent leaking through a lack of focus'],
+            ['The High Priestess', 'the answer already inside you, beneath the noise', 'intuition shouted down by other people’s logic'],
+            ['The Empress', 'abundance and growth; the body, the garden, the yield', 'growth forced instead of tended; care curdling into smothering'],
+            ['The Emperor', 'structure and authority; the architecture of order', 'control hardened into rigidity; the fortress become a cage'],
+            ['The Hierophant', 'tradition and teaching; the inherited map still serves', 'dogma outlived; it may be time to leave the temple'],
+            ['The Lovers', 'a true choice of alignment, far more than romance', 'values pulling in two directions; a choice being avoided'],
+            ['The Chariot', 'victory through directed will; hold both reins at once', 'momentum without steering; speed mistaken for direction'],
+            ['Strength', 'soft power; the lion calmed rather than caged', 'force applied where patience was asked for'],
+            ['The Hermit', 'withdrawal to find the lamp; wisdom asks for silence', 'isolation kept past its purpose'],
+            ['Wheel of Fortune', 'the turn of cycles; luck in motion, so move with it', 'resisting a turn that is coming regardless'],
+            ['Justice', 'cause and effect; the ledger balances itself in time', 'an unbalanced account; a truth being avoided'],
+            ['The Hanged Man', 'the pause that reframes everything; surrender as strategy', 'sacrifice without insight; stalling dressed as patience'],
+            ['Death', 'an ending that clears ground; nothing grows in a full field', 'clinging to what has already ended'],
+            ['Temperance', 'the alchemy of opposites; patience as a technology', 'excess on one side of the scale; the mixture is off'],
+            ['The Devil', 'the chain examined; appetite mistaken for need', 'the first link loosening; liberation has begun'],
+            ['The Tower', 'sudden collapse of a false structure; lightning as mercy', 'the collapse delayed and dreaded, but still due'],
+            ['The Star', 'quiet hope after the storm; the aquifer refilling', 'faith run dry; look up again, the sky has not moved'],
+            ['The Moon', 'illusion and dream-logic; a path walked by reflected light', 'the fog lifting; fears lose mass once named'],
+            ['The Sun', 'clarity and vitality; success that casts no shadow', 'a dimmed joy; clouds, but passing ones'],
+            ['Judgement', 'the reckoning and the rising; answer the call you heard', 'self-judgment pitched too harsh, or absent where it is owed'],
+            ['The World', 'completion of the circuit; the dance closes in wholeness', 'a circle almost closed; one honest step remains']
+        ];
+
+        var SUITS = {
+            Wands: { domain: 'the fire of will, work and desire', color: '#b07a4a' },
+            Cups: { domain: 'the water of feeling, bonds and intuition', color: '#5b8aa6' },
+            Swords: { domain: 'the air of thought, truth and conflict', color: '#8b8f98' },
+            Pentacles: { domain: 'the earth of money, body and craft', color: '#7d9458' }
+        };
+        var SUIT_NAMES = ['Wands', 'Cups', 'Swords', 'Pentacles'];
+        var RANKS = [
+            ['Ace', 'a seed of pure potential'],
+            ['2', 'a choice held in balance'],
+            ['3', 'first growth; hands joining the work'],
+            ['4', 'structure and stability; a pause to hold what is built'],
+            ['5', 'friction and loss; the test that tempers'],
+            ['6', 'harmony restored; movement after struggle'],
+            ['7', 'assessment and patience; the long game'],
+            ['8', 'mastery earned through repetition'],
+            ['9', 'the near-summit; resilience with one push left'],
+            ['10', 'culmination; the full weight of the cycle'],
+            ['Page', 'a student energy; a message arriving'],
+            ['Knight', 'pursuit and momentum; the quest at full gallop'],
+            ['Queen', 'inward mastery; power that nurtures'],
+            ['King', 'outward mastery; power that commands']
+        ];
+
+        var DECK = [];
+        MAJORS.forEach(function (m, i) {
+            DECK.push({ major: true, idx: i, name: m[0], up: m[1], rev: m[2] });
+        });
+        SUIT_NAMES.forEach(function (s) {
+            RANKS.forEach(function (r, ri) {
+                DECK.push({
+                    major: false, suit: s, rankIdx: ri,
+                    name: r[0] + ' of ' + s,
+                    up: r[1] + ', set in ' + SUITS[s].domain,
+                    rev: 'the current stalls or turns inward: ' + r[1] + ', unresolved in ' + SUITS[s].domain
+                });
+            });
+        });
+
+        var SPREADS = {
+            'Three-Card Spread': [
+                ['Past (The Echoes of Time)', 'this is what shaped the ground'],
+                ['Present (The Current Nexus)', 'this is where you actually stand'],
+                ['Future (The Unfolding Path)', 'this is where the current carries you']
+            ],
+            'Elemental Spread': [
+                ['Fire (Passion and Energy)', 'this is what fuels you'],
+                ['Water (Emotions and Intuition)', 'this is what moves beneath the surface'],
+                ['Air (Thoughts and Communication)', 'this is what must be thought or said clearly'],
+                ['Earth (Material and Practical)', 'this is what grounds the question'],
+                ['Spirit (Higher Purpose)', 'this is what it is all in service of']
+            ],
+            'Celtic Cross': [
+                ['Present (The Veil of Now)', 'the heart of the matter'],
+                ['Challenge (The Shadow’s Whisper)', 'the grain to work against'],
+                ['Past (Echoes of Yesterday)', 'what brought you here'],
+                ['Future (Tomorrow’s Mist)', 'what approaches next'],
+                ['Above (The Conscious Realm)', 'what you are aiming for'],
+                ['Below (The Subconscious Depths)', 'what runs underneath'],
+                ['Advice (The Inner Voice)', 'how to move'],
+                ['External Influences (The Cosmic Winds)', 'what others bring to it'],
+                ['Hopes and Fears (The Heart’s Duality)', 'the double-edged wish'],
+                ['Outcome (The Tapestry’s End)', 'where this resolves']
+            ]
+        };
+
+        var CLOSERS = [
+            'May your fate be well-shuffled and your cups never reversed.',
+            'The cards reveal not your destiny, but the path to shape it. Tip your dealer: it is the universe.',
+            'As above, so below; as within, so without. Mind the pentacles on the way out.',
+            'The universe whispers to those who listen with the heart. It also puns.',
+            'Whatever the spread says, you are still the one holding the wand.'
+        ];
+
+        function mulberry32(a) {
+            return function () {
+                a |= 0; a = a + 0x6D2B79F5 | 0;
+                var t = Math.imul(a ^ a >>> 15, 1 | a);
+                t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+                return ((t ^ t >>> 14) >>> 0) / 4294967296;
+            };
+        }
+
+        var ROMAN = ['0', 'I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII', 'XIII', 'XIV', 'XV', 'XVI', 'XVII', 'XVIII', 'XIX', 'XX', 'XXI'];
+
+        function glyphPath(suit) {
+            if (suit === 'Wands') return 'M-1.8,-16 h3.6 v32 h-3.6 z M0,-22 l5,6 -5,6 -5,-6 z';
+            if (suit === 'Cups') return 'M-10,-10 h20 v4 a10,10 0 0 1 -20,0 z M-1.8,3 h3.6 v8 h-3.6 z M-8,11 h16 v3 h-16 z';
+            if (suit === 'Swords') return 'M0,-20 l3.6,26 h-7.2 z M-8,6 h16 v3 h-16 z M-1.8,9 h3.6 v9 h-3.6 z';
+            return pentaclePath();
+        }
+        function pentaclePath() {
+            var pts = [];
+            for (var i = 0; i < 5; i++) {
+                var ang = (-90 + i * 144) * Math.PI / 180;
+                pts.push([(Math.cos(ang) * 10).toFixed(2), (Math.sin(ang) * 10).toFixed(2)]);
+            }
+            var d = 'M' + pts[0][0] + ',' + pts[0][1];
+            for (var j = 1; j < 5; j++) d += ' L' + pts[j][0] + ',' + pts[j][1];
+            return d + ' Z';
+        }
+        function glyph(suit, x, y, s) {
+            var col = SUITS[suit].color;
+            var inner = '<path d="' + glyphPath(suit) + '" fill="' + (suit === 'Pentacles' ? 'none' : col) + '" stroke="' + col + '" stroke-width="1.6" stroke-linejoin="round"/>';
+            if (suit === 'Pentacles') inner += '<circle r="13" fill="none" stroke="' + col + '" stroke-width="1.6"/>';
+            return '<g transform="translate(' + x + ',' + y + ') scale(' + s + ')">' + inner + '</g>';
+        }
+
+        function starsSVG(rnd, n, w, h, col) {
+            var out = '';
+            for (var i = 0; i < n; i++) {
+                var x = (6 + rnd() * (w - 12)).toFixed(1), y = (6 + rnd() * (h - 12)).toFixed(1);
+                var r = (0.5 + rnd() * 1.1).toFixed(2);
+                out += '<circle cx="' + x + '" cy="' + y + '" r="' + r + '" fill="' + col + '" opacity="' + (0.25 + rnd() * 0.5).toFixed(2) + '"/>';
+            }
+            return out;
+        }
+
+        function majorSigil(idx) {
+            var rnd = mulberry32(idx * 2654435761 + 7);
+            var cx = 55, cy = 95, pts = [], n = 6 + Math.floor(rnd() * 4);
+            for (var i = 0; i < n; i++) {
+                var ang = rnd() * Math.PI * 2, rad = 14 + rnd() * 26;
+                pts.push([cx + Math.cos(ang) * rad, cy + Math.sin(ang) * rad * 1.25]);
+            }
+            var lines = '', dots = '';
+            for (var j = 0; j < n; j++) {
+                var a = pts[j], b = pts[(j + 1) % n];
+                lines += '<line x1="' + a[0].toFixed(1) + '" y1="' + a[1].toFixed(1) + '" x2="' + b[0].toFixed(1) + '" y2="' + b[1].toFixed(1) + '" stroke="var(--accent-color)" stroke-width="0.7" opacity="0.8"/>';
+                dots += '<circle cx="' + a[0].toFixed(1) + '" cy="' + a[1].toFixed(1) + '" r="1.8" fill="var(--text-color)"/>';
+            }
+            var ring = '<ellipse cx="55" cy="95" rx="34" ry="44" fill="none" stroke="var(--sidenote-color)" stroke-width="0.6" stroke-dasharray="3 4"/>';
+            return ring + lines + dots;
+        }
+
+        function pipLayout(count) {
+            var pos = [], cols = count > 3 ? 2 : 1;
+            var rows = Math.ceil(count / cols);
+            for (var i = 0; i < count; i++) {
+                var c = cols === 1 ? 0 : (i % 2), r = cols === 1 ? i : Math.floor(i / 2);
+                var x = cols === 1 ? 55 : (c === 0 ? 36 : 74);
+                var y = 60 + (rows === 1 ? 35 : r * (82 / Math.max(rows - 1, 1)));
+                pos.push([x, y]);
+            }
+            return pos;
+        }
+
+        function cardFaceSVG(card) {
+            var rnd = mulberry32((card.major ? card.idx : 100 + card.rankIdx * 7 + SUIT_NAMES.indexOf(card.suit)) * 1013904223 + 3);
+            var s = '<svg viewBox="0 0 110 184" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="' + card.name + '">';
+            s += '<rect x="1" y="1" width="108" height="182" rx="6" fill="var(--bg-color)" stroke="var(--sidenote-color)" stroke-width="1.5"/>';
+            s += '<rect x="6" y="6" width="98" height="172" rx="4" fill="none" stroke="var(--sidenote-color)" stroke-width="0.5" opacity="0.6"/>';
+            s += starsSVG(rnd, 10, 110, 184, 'var(--sidenote-color)');
+            if (card.major) {
+                s += '<text x="55" y="26" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--accent-color)">' + ROMAN[card.idx] + '</text>';
+                s += majorSigil(card.idx);
+                s += '<text x="55" y="168" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="var(--text-color)">' + card.name.toUpperCase() + '</text>';
+            } else {
+                var rank = RANKS[card.rankIdx][0];
+                var label = rank === 'Ace' ? 'A' : rank.length > 2 ? rank[0] : rank;
+                s += '<text x="16" y="24" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="' + SUITS[card.suit].color + '">' + label + '</text>';
+                s += '<text x="94" y="172" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="' + SUITS[card.suit].color + '" transform="rotate(180 94 168)">' + label + '</text>';
+                if (card.rankIdx <= 9) {
+                    var n = card.rankIdx + 1;
+                    if (n === 1) { s += glyph(card.suit, 55, 95, 1.6); }
+                    else pipLayout(n).forEach(function (p) { s += glyph(card.suit, p[0], p[1], 0.62); });
+                } else {
+                    s += glyph(card.suit, 55, 88, 1.45);
+                    s += '<text x="55" y="150" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--text-color)">' + rank.toUpperCase() + '</text>';
+                }
+            }
+            return s + '</svg>';
+        }
+
+        var BACK_SVG = (function () {
+            var rnd = mulberry32(42);
+            var s = '<svg viewBox="0 0 110 184" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">';
+            s += '<rect x="1" y="1" width="108" height="182" rx="6" fill="var(--bg-color)" stroke="var(--sidenote-color)" stroke-width="1.5"/>';
+            s += '<rect x="7" y="7" width="96" height="170" rx="4" fill="none" stroke="var(--accent-color)" stroke-width="0.8"/>';
+            s += starsSVG(rnd, 26, 110, 184, 'var(--accent-color)');
+            var star = '';
+            for (var i = 0; i < 8; i++) {
+                var ang = i * Math.PI / 4;
+                star += '<line x1="55" y1="92" x2="' + (55 + Math.cos(ang) * (i % 2 ? 12 : 22)).toFixed(1) + '" y2="' + (92 + Math.sin(ang) * (i % 2 ? 12 : 22)).toFixed(1) + '" stroke="var(--accent-color)" stroke-width="1.2"/>';
+            }
+            s += star + '<circle cx="55" cy="92" r="3" fill="var(--accent-color)"/>';
+            return s + '</svg>';
+        })();
+
+        // interpretation
+        function interpret(question, spreadName, drawn) {
+            var paras = [];
+            paras.push('You asked: “' + question + '”. The ' + spreadName.toLowerCase() + ' answers in ' + drawn.length + ' voices. Read them as one sentence spoken slowly.');
+            drawn.forEach(function (d, i) {
+                var pos = SPREADS[spreadName][i];
+                var meaning = d.reversed ? d.card.rev : d.card.up;
+                paras.push(pos[0] + ' · ' + d.card.name + (d.reversed ? ' (reversed)' : '') + ': ' + meaning + '. In this position, ' + pos[1] + '.');
+            });
+            var majors = drawn.filter(function (d) { return d.card.major; }).length;
+            var counts = {};
+            drawn.forEach(function (d) { if (!d.card.major) counts[d.card.suit] = (counts[d.card.suit] || 0) + 1; });
+            var domSuit = null, domN = 0;
+            Object.keys(counts).forEach(function (k) { if (counts[k] > domN) { domN = counts[k]; domSuit = k; } });
+            var syn = [];
+            if (majors >= Math.ceil(drawn.length / 2)) syn.push('The arcana lean major: this is fate’s weather, not daily noise, so decisions here echo longer than they appear to.');
+            else if (majors === 0) syn.push('No major arcana surfaced: the matter is in your hands and made of ordinary, workable material.');
+            if (domSuit && domN >= 2) {
+                var elemLine = {
+                    Wands: 'the spread burns toward action; the answer is in doing, not deliberating',
+                    Cups: 'the spread runs on water; feeling is the data here, so trust what moves beneath',
+                    Swords: 'the spread is airborne; clarity and honest words will cut the knot',
+                    Pentacles: 'the spread is grounded in earth; tend the practical and the mystical will follow'
+                }[domSuit];
+                syn.push(domSuit + ' dominate: ' + elemLine + '.');
+            }
+            var rev = drawn.filter(function (d) { return d.reversed; }).length;
+            if (rev >= Math.ceil(drawn.length / 2)) syn.push('Many cards arrive reversed: energy is pooling rather than flowing. Look for where it is dammed.');
+            syn.push('Read the arc: it opens at ' + drawn[0].card.name + ' and resolves at ' + drawn[drawn.length - 1].card.name + '. The path between them is yours to walk.');
+            paras.push(syn.join(' '));
+            paras.push(CLOSERS[Math.floor(Math.random() * CLOSERS.length)]);
+            return paras;
+        }
+
+        // storage
+        var STORE_KEY = 'freetarot.readings';
+        function loadReadings() {
+            try {
+                var raw = localStorage.getItem(STORE_KEY);
+                var arr = raw ? JSON.parse(raw) : [];
+                if (!Array.isArray(arr)) return [];
+                return arr.filter(function (r) {
+                    return r && typeof r.question === 'string' && typeof r.spread === 'string' &&
+                        Array.isArray(r.cards) && Array.isArray(r.paras);
+                });
+            } catch (e) { return []; }
+        }
+        function saveReadings(arr) {
+            try { localStorage.setItem(STORE_KEY, JSON.stringify(arr)); return true; }
+            catch (e) { return false; }
+        }
+
+        // dom
+        var qInput = document.getElementById('question-input');
+        var spreadRow = document.getElementById('spread-row');
+        var drawBtn = document.getElementById('draw-btn');
+        var drawNote = document.getElementById('draw-note');
+        var grid = document.getElementById('cards-grid');
+        var interpEl = document.getElementById('interp');
+        var savedList = document.getElementById('saved-list');
+        var savedEmpty = document.getElementById('saved-empty');
+        var currentSpread = 'Three-Card Spread';
+
+        Object.keys(SPREADS).forEach(function (name) {
+            var b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'spread-btn' + (name === currentSpread ? ' active' : '');
+            b.textContent = name + ' (' + SPREADS[name].length + ')';
+            b.addEventListener('click', function () {
+                currentSpread = name;
+                spreadRow.querySelectorAll('.spread-btn').forEach(function (x) { x.classList.remove('active'); });
+                b.classList.add('active');
+            });
+            spreadRow.appendChild(b);
+        });
+
+        function findCard(name) {
+            for (var i = 0; i < DECK.length; i++) if (DECK[i].name === name) return DECK[i];
+            return null;
+        }
+
+        function renderCards(drawn, positions, instant) {
+            grid.textContent = '';
+            drawn.forEach(function (d, i) {
+                var wrap = document.createElement('div');
+                wrap.className = 'tcard' + (instant ? ' revealed' : '');
+                var pos = document.createElement('div');
+                pos.className = 'pos';
+                pos.textContent = positions[i][0];
+                var fb = document.createElement('div');
+                fb.className = 'flipbox';
+                var flip = document.createElement('div');
+                flip.className = 'flip';
+                var back = document.createElement('div');
+                back.className = 'face back';
+                back.innerHTML = BACK_SVG;
+                var front = document.createElement('div');
+                front.className = 'face front' + (d.reversed ? ' rev' : '');
+                front.innerHTML = cardFaceSVG(d.card);
+                flip.appendChild(back); flip.appendChild(front);
+                fb.appendChild(flip);
+                var nm = document.createElement('div');
+                nm.className = 'cname';
+                nm.textContent = d.card.name;
+                if (d.reversed) {
+                    var rv = document.createElement('span');
+                    rv.className = 'revtag';
+                    rv.textContent = ' (rev)';
+                    nm.appendChild(rv);
+                }
+                wrap.appendChild(pos); wrap.appendChild(fb); wrap.appendChild(nm);
+                grid.appendChild(wrap);
+                if (!instant) setTimeout(function () { wrap.classList.add('revealed'); }, 350 + i * 260);
+            });
+        }
+
+        function renderInterp(paras, target) {
+            target.textContent = '';
+            paras.forEach(function (p, i) {
+                var el = document.createElement('p');
+                if (i === paras.length - 1) el.className = 'closer';
+                el.textContent = (i === paras.length - 1 ? '' : '✨ ') + p;
+                target.appendChild(el);
+            });
+        }
+
+        function doDraw() {
+            var q = qInput.value.trim();
+            if (!q) {
+                drawNote.textContent = '\u{1F319} Whisper your question to the universe before seeking its wisdom.';
+                qInput.focus();
+                return;
+            }
+            drawNote.textContent = 'The cards are dancing in the ethereal realm...';
+            var positions = SPREADS[currentSpread];
+            var pool = DECK.slice();
+            for (var i = pool.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var t = pool[i]; pool[i] = pool[j]; pool[j] = t;
+            }
+            var drawn = pool.slice(0, positions.length).map(function (c) {
+                return { card: c, reversed: Math.random() < 0.3 };
+            });
+            renderCards(drawn, positions, false);
+            interpEl.textContent = '';
+            var paras = interpret(q, currentSpread, drawn);
+            setTimeout(function () {
+                renderInterp(paras, interpEl);
+                drawNote.textContent = 'Saved below. Draw again whenever the question changes shape.';
+                var readings = loadReadings();
+                readings.unshift({
+                    id: Date.now() + '-' + Math.floor(Math.random() * 1e6),
+                    ts: new Date().toISOString(),
+                    question: q,
+                    spread: currentSpread,
+                    cards: drawn.map(function (d) { return { name: d.card.name, reversed: d.reversed }; }),
+                    paras: paras
+                });
+                if (readings.length > 60) readings.length = 60;
+                if (!saveReadings(readings)) drawNote.textContent = 'Reading complete. (Storage unavailable in this browser, so it will not persist.)';
+                renderSaved();
+            }, 350 + positions.length * 260 + 500);
+        }
+
+        drawBtn.addEventListener('click', doDraw);
+        qInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') doDraw(); });
+
+        function renderSaved() {
+            var readings = loadReadings();
+            savedList.textContent = '';
+            savedEmpty.style.display = readings.length ? 'none' : '';
+            readings.forEach(function (r) {
+                var item = document.createElement('div');
+                item.className = 'saved-item';
+                var meta = document.createElement('div');
+                meta.className = 'meta';
+                var when = new Date(r.ts);
+                meta.textContent = when.toLocaleString() + ' · ' + r.spread;
+                var q = document.createElement('div');
+                q.className = 'q';
+                q.textContent = '“' + r.question + '”';
+                var cl = document.createElement('div');
+                cl.className = 'cardsline';
+                cl.textContent = r.cards.map(function (c) { return c.name + (c.reversed ? ' (rev)' : ''); }).join(' · ');
+                var actions = document.createElement('div');
+                actions.className = 'actions';
+                var view = document.createElement('button');
+                view.type = 'button';
+                view.textContent = 'read';
+                var del = document.createElement('button');
+                del.type = 'button';
+                del.textContent = 'release';
+                var full = document.createElement('div');
+                full.className = 'full';
+                view.addEventListener('click', function () {
+                    if (!full.childNodes.length) renderInterp(r.paras || [], full);
+                    item.classList.toggle('open');
+                    view.textContent = item.classList.contains('open') ? 'close' : 'read';
+                });
+                var armed = false;
+                del.addEventListener('click', function () {
+                    if (!armed) { armed = true; del.textContent = 'sure?'; setTimeout(function () { armed = false; del.textContent = 'release'; }, 2500); return; }
+                    var rest = loadReadings().filter(function (x) { return x.id !== r.id; });
+                    saveReadings(rest);
+                    renderSaved();
+                });
+                actions.appendChild(view); actions.appendChild(del);
+                item.appendChild(meta); item.appendChild(q); item.appendChild(cl); item.appendChild(actions); item.appendChild(full);
+                savedList.appendChild(item);
+            });
+        }
+        renderSaved();
+    })();
+    </script>
+
 </body>
 </html>
