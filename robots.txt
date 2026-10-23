@@ -1,4 +1,3 @@
 User-agent: *
-Allow: /tarot
-Allow: /sitemap.xml
-Sitemap: https://www.thefreetarot.com/sitemap.xml
+Allow: /
+Sitemap: https://freetarot.xyz/sitemap.xml
