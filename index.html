@@ -67,296 +67,216 @@
     </script>
     <!-- Title -->
     <title>Free Tarot Readings | Jungian Tarot Analysis</title>
-    <!-- IBM Plex Mono for Typography -->
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&family=IBM+Plex+Serif:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <!-- CSS -->
     <style>
         :root {
-            --bg-color: #1a1a1a;
-            --text-color: #d3d3d3;
-            --link-color: #a0a0a0;
-            --accent-color: #6c757d;
-            --sidenote-color: #808080;
+            --bg-color: #0d0b1a;
+            --bg-2: #15112a;
+            --surface: rgba(255,255,255,0.04);
+            --surface-2: rgba(255,255,255,0.07);
+            --border: rgba(214,190,255,0.16);
+            --text-color: #ece6f7;
+            --muted: #b3a9c9;
+            --link-color: #e7c77d;
+            --accent-color: #d9b56a;
+            --accent-2: #a98bff;
+            --sidenote-color: #8f86a8;
+            --glow: rgba(217,181,106,0.35);
+            --radius: 18px;
+            --shadow: 0 20px 50px -20px rgba(0,0,0,0.6);
         }
-
         [data-theme="light"] {
-            --bg-color: #f5f5f5;
-            --text-color: #333;
-            --link-color: #555;
-            --accent-color: #495057;
-            --sidenote-color: #666;
+            --bg-color: #f7f3ec;
+            --bg-2: #efe8dc;
+            --surface: rgba(60,40,90,0.04);
+            --surface-2: rgba(60,40,90,0.07);
+            --border: rgba(60,40,90,0.15);
+            --text-color: #231d33;
+            --muted: #564d6b;
+            --link-color: #8a5d12;
+            --accent-color: #9a6a16;
+            --accent-2: #6b4fd1;
+            --sidenote-color: #7a7190;
+            --glow: rgba(154,106,22,0.25);
+            --shadow: 0 20px 40px -24px rgba(40,25,70,0.35);
         }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; background: var(--bg-color); }
         body {
             margin: 0;
-            padding: 0;
-            font-family: 'IBM Plex Serif', serif;
-            background: var(--bg-color);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 17px;
+            line-height: 1.7;
             color: var(--text-color);
-            line-height: 1.6;
-            font-size: 16px;
+            background:
+                radial-gradient(1200px 600px at 80% -10%, rgba(169,139,255,0.18), transparent 60%),
+                radial-gradient(900px 500px at -10% 20%, rgba(217,181,106,0.10), transparent 60%),
+                linear-gradient(180deg, var(--bg-color), var(--bg-2));
+            background-color: var(--bg-color);
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
+        body::before {
+            content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+            background-image:
+                radial-gradient(1px 1px at 12% 18%, rgba(255,255,255,.6), transparent 60%),
+                radial-gradient(1px 1px at 72% 12%, rgba(255,255,255,.5), transparent 60%),
+                radial-gradient(1.5px 1.5px at 40% 70%, rgba(255,255,255,.4), transparent 60%),
+                radial-gradient(1px 1px at 88% 56%, rgba(255,255,255,.5), transparent 60%),
+                radial-gradient(1px 1px at 22% 88%, rgba(255,255,255,.4), transparent 60%),
+                radial-gradient(1.5px 1.5px at 60% 36%, rgba(255,255,255,.35), transparent 60%);
+            opacity: .7;
         }
+        [data-theme="light"] body::before { opacity: 0; }
+        .container { position: relative; z-index: 1; max-width: 960px; margin: 0 auto; padding: 0 24px 40px; }
 
-        h1, h2, h3 {
-            font-family: 'IBM Plex Mono', monospace;
-            color: var(--accent-color);
-            margin: 1.5em 0 0.5em;
+        .topbar { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+        .brand { font-family: 'Cormorant Garamond', serif; font-size: 1.45em; font-weight: 600; letter-spacing: .02em; color: var(--text-color); border: 0; display: flex; align-items: center; gap: 10px; }
+        .brand-mark { color: var(--accent-color); font-size: .9em; }
+        .topnav { display: flex; gap: 22px; font-size: .9em; }
+        .topnav a { color: var(--muted); border: 0; }
+        .topnav a:hover { color: var(--accent-color); }
+
+        h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--text-color); line-height: 1.15; letter-spacing: -0.01em; }
+        h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); margin: .25em 0 .35em; }
+        h1 em { font-style: italic; color: var(--accent-color); }
+        h2 { font-size: clamp(1.8rem, 3.6vw, 2.5rem); margin: 0 0 .5em; }
+        .eyebrow { font-size: .75em; letter-spacing: .22em; text-transform: uppercase; color: var(--accent-color); font-weight: 600; margin: 0; }
+
+        a { color: var(--link-color); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--link-color) 35%, transparent); transition: color .2s, border-color .2s; }
+        a:hover { color: var(--accent-2); border-color: var(--accent-2); }
+
+        .hero { text-align: center; padding: 56px 0 40px; }
+        .hero .lead { font-size: 1.15em; color: var(--muted); max-width: 640px; margin: 0 auto 1.6em; }
+        .hero-cta { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 1.4em; }
+        .btn, #draw-btn {
+            display: inline-flex; align-items: center; gap: 10px; justify-content: center;
+            font-family: 'Inter', sans-serif; font-weight: 600; font-size: .95em;
+            padding: 14px 28px; border-radius: 999px; cursor: pointer; border: 0;
+            background: linear-gradient(135deg, #e9cd8a, #c99a48); color: #1b1428;
+            box-shadow: 0 10px 30px -10px var(--glow); transition: transform .2s, box-shadow .2s;
         }
+        .btn:hover, #draw-btn:hover { transform: translateY(-2px); color: #1b1428; box-shadow: 0 16px 40px -12px var(--glow); }
+        .btn.ghost { background: transparent; color: var(--text-color); border: 1px solid var(--border); box-shadow: none; }
+        .btn.ghost:hover { color: var(--accent-color); border-color: var(--accent-color); }
 
-        h1::first-letter, h2::first-letter {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: var(--accent-color);
-        }
+        .tags { margin: 1.4em 0 0; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; align-items: center; }
+        .tags span { display: none; }
+        .tags a { padding: 6px 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--muted); font-size: .82em; }
+        .tags a:hover { color: var(--accent-color); border-color: var(--accent-color); }
 
-        a {
-            color: var(--link-color);
-            text-decoration: none;
-            border-bottom: 1px dotted;
-        }
+        section { margin: 0 0 28px; }
+        .panel { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 40px; box-shadow: var(--shadow); }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+        .grid-2 > section { margin: 0; }
 
-        a:hover {
-            color: var(--accent-color);
-        }
+        .sidenote { display: block; margin: 1em 0 0; padding: 12px 16px; font-size: .86em; color: var(--muted); background: var(--surface-2); border-left: 2px solid var(--accent-color); border-radius: 0 10px 10px 0; }
 
-        .theme-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: var(--bg-color);
-            border: 1px solid var(--text-color);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-        }
+        details { margin: 1em 0 0; }
+        summary { cursor: pointer; color: var(--accent-color); font-weight: 600; font-size: .92em; list-style: none; display: inline-flex; align-items: center; gap: 8px; }
+        summary::-webkit-details-marker { display: none; }
+        summary::before { content: "+"; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; border: 1px solid var(--accent-color); font-size: .9em; transition: transform .2s; }
+        details[open] summary::before { content: "\2212"; }
+        details > div { margin: 1em 0 0; padding-left: 18px; border-left: 1px solid var(--border); color: var(--muted); }
 
-        .theme-toggle i {
-            font-size: 1.2em;
-            color: var(--text-color);
-        }
-
-        .sidenote {
-            float: right;
-            width: 200px;
-            margin: 0 0 1em 1em;
-            font-size: 0.85em;
-            color: var(--sidenote-color);
-            clear: right;
-        }
-
-        @media (max-width: 1000px) {
-            .sidenote {
-                float: none;
-                width: auto;
-                margin: 1em 0;
-                border-left: 2px solid var(--sidenote-color);
-                padding-left: 10px;
-            }
-        }
-
-        details {
-            margin: 0.5em 0;
-            cursor: pointer;
-        }
-
-        summary {
-            color: var(--accent-color);
-            border-bottom: 1px solid var(--accent-color);
-            display: inline-block;
-        }
-
-        details[open] summary {
-            color: var(--text-color);
-        }
-
-        details > div {
-            margin: 1em 0;
-            padding-left: 20px;
-            border-left: 2px solid var(--sidenote-color);
-        }
-
-        .popup {
-            position: relative;
-            display: inline-block;
-        }
-
+        .popup { position: relative; display: inline-block; border-bottom: 1px dashed var(--accent-color); cursor: help; }
         .popup .popup-text {
-            visibility: hidden;
-            width: 300px;
-            background: var(--bg-color);
-            color: var(--text-color);
-            border: 1px solid var(--text-color);
-            padding: 10px;
-            position: absolute;
-            z-index: 100;
-            bottom: 125%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.9em;
-            opacity: 0;
-            transition: opacity 0.3s;
+            visibility: hidden; opacity: 0; position: absolute; z-index: 100; bottom: 130%; left: 50%; transform: translateX(-50%) translateY(4px);
+            width: 280px; max-width: 80vw; padding: 12px 14px; font-size: .85em; line-height: 1.5;
+            background: #1d1733; color: #ece6f7; border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow);
+            transition: opacity .2s, transform .2s;
         }
+        .popup:hover .popup-text, .popup:focus-within .popup-text { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(0); }
 
-        .popup:hover .popup-text {
-            visibility: visible;
-            opacity: 1;
-        }
-
-        .tags {
-            margin: 2em 0;
-            font-size: 1em;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .tags span {
-            color: var(--sidenote-color);
-        }
-
-        .tags a {
-            padding: 6px 12px;
-            background: var(--bg-color);
-            border: 1px solid var(--text-color);
-            border-radius: 15px;
-            text-decoration: none;
-            font-size: 1em;
-            line-height: 1.2;
-            min-width: 60px;
-            text-align: center;
-        }
-
-        @media (max-width: 600px) {
-            .tags {
-                gap: 8px;
-                justify-content: flex-start;
-            }
-            .tags a {
-                padding: 5px 10px;
-                font-size: 0.95em;
-                min-width: 50px;
-            }
-        }
-
+        .archetypes { list-style: none; padding: 0; margin: 1.2em 0 0; display: grid; gap: 10px; }
+        .archetypes li { padding: 12px 16px; border: 1px solid var(--border); border-radius: 12px; background: var(--surface-2); }
 
         /* Reading engine */
-        .reading-controls label {
-            display: block;
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.8em;
-            letter-spacing: 0.05em;
-            color: var(--sidenote-color);
-            margin-bottom: 6px;
-        }
+        #reading.panel { padding: 48px 40px; background: linear-gradient(180deg, rgba(169,139,255,0.08), var(--surface)); }
+        #reading .intro { color: var(--muted); max-width: 680px; }
+        .reading-controls { margin-top: 1.6em; }
+        .reading-controls label { display: block; font-size: .78em; letter-spacing: .16em; text-transform: uppercase; color: var(--accent-color); font-weight: 600; margin-bottom: 10px; }
         #question-input {
-            width: 100%;
-            box-sizing: border-box;
-            background: transparent;
-            border: 1px solid var(--sidenote-color);
-            color: var(--text-color);
-            padding: 10px 12px;
-            font-family: 'IBM Plex Serif', serif;
-            font-size: 1em;
+            width: 100%; padding: 16px 20px; font-size: 1.05em; font-family: 'Inter', sans-serif;
+            background: rgba(0,0,0,0.25); color: var(--text-color); border: 1px solid var(--border); border-radius: 14px; transition: border-color .2s, box-shadow .2s;
         }
-        #question-input:focus { outline: none; border-color: var(--accent-color); }
-        .spread-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 1em 0; }
-        .spread-btn, #draw-btn {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.85em;
-            background: transparent;
-            border: 1px solid var(--sidenote-color);
-            color: var(--text-color);
-            padding: 8px 14px;
-            cursor: pointer;
+        [data-theme="light"] #question-input { background: #fff; }
+        #question-input::placeholder { color: var(--sidenote-color); }
+        #question-input:focus { outline: none; border-color: var(--accent-color); box-shadow: 0 0 0 4px var(--glow); }
+        .spread-row { display: flex; gap: 10px; flex-wrap: wrap; margin: 1.2em 0; }
+        .spread-btn {
+            font-family: 'Inter', sans-serif; font-size: .88em; font-weight: 500; cursor: pointer;
+            padding: 10px 18px; border-radius: 999px; background: var(--surface-2); color: var(--muted); border: 1px solid var(--border); transition: all .2s;
         }
-        .spread-btn.active { border-color: var(--text-color); background: var(--text-color); color: var(--bg-color); }
-        .spread-btn:hover, #draw-btn:hover { border-color: var(--accent-color); }
-        #draw-btn { margin-top: 0.5em; padding: 10px 22px; }
-        .draw-note { font-size: 0.85em; color: var(--sidenote-color); min-height: 1.2em; margin: 0.6em 0 0; }
-        .cards-grid { display: flex; flex-wrap: wrap; gap: 16px 14px; margin: 1.6em 0 0.6em; justify-content: center; }
-        .tcard { width: 110px; }
-        .tcard .pos {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.62em;
-            line-height: 1.35;
-            text-align: center;
-            color: var(--sidenote-color);
-            min-height: 2.8em;
-            margin-bottom: 6px;
-        }
-        .tcard .flipbox { perspective: 900px; }
-        .tcard .flip {
-            position: relative;
-            width: 110px; height: 184px;
-            transform-style: preserve-3d;
-            transition: transform 0.8s cubic-bezier(0.35, 0.1, 0.2, 1);
-        }
+        .spread-btn:hover { color: var(--text-color); border-color: var(--accent-2); }
+        .spread-btn.active { background: var(--accent-2); border-color: var(--accent-2); color: #fff; }
+        .draw-note { font-size: .88em; color: var(--muted); min-height: 1.4em; margin: .9em 0 0; }
+        .cards-grid { display: flex; flex-wrap: wrap; gap: 24px 18px; margin: 2em 0 1em; justify-content: center; }
+        .tcard { width: 128px; }
+        .tcard .pos, .tcard .cname { animation: rise .5s ease both; }
+        @keyframes rise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+        .tcard .pos { font-size: .66em; line-height: 1.35; text-align: center; color: var(--accent-color); letter-spacing: .04em; min-height: 2.8em; margin-bottom: 8px; font-weight: 600; }
+        .tcard .flipbox { perspective: 900px; border-radius: 8px; box-shadow: 0 14px 28px -10px rgba(0,0,0,.55); }
+        .tcard .flip { position: relative; width: 128px; height: 214px; transform-style: preserve-3d; transition: transform .8s cubic-bezier(.35,.1,.2,1); }
         .tcard.revealed .flip { transform: rotateY(180deg); }
-        .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 8px; overflow: hidden; }
         .face svg { display: block; width: 100%; height: 100%; }
         .face.front { transform: rotateY(180deg); }
         .face.front.rev svg { transform: rotate(180deg); }
-        .tcard .cname {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.66em;
-            line-height: 1.3;
-            text-align: center;
-            margin-top: 6px;
-            color: var(--text-color);
-            min-height: 2.6em;
-        }
-        .tcard .cname .revtag { color: var(--sidenote-color); }
-        .interp { margin: 1.2em 0; }
-        .interp p { margin: 0.8em 0; }
-        .interp .closer { color: var(--sidenote-color); font-style: italic; }
-        .saved-item { border: 1px solid var(--sidenote-color); padding: 12px 16px; margin: 0.8em 0; }
-        .saved-item .meta { font-family: 'IBM Plex Mono', monospace; font-size: 0.72em; color: var(--sidenote-color); }
-        .saved-item .q { margin: 0.4em 0; }
-        .saved-item .cardsline { font-size: 0.85em; color: var(--sidenote-color); margin: 0.3em 0; }
-        .saved-item .actions { margin-top: 0.5em; display: flex; gap: 10px; }
-        .saved-item .actions button {
-            font-family: 'IBM Plex Mono', monospace;
-            font-size: 0.75em;
-            background: transparent;
-            border: 1px solid var(--sidenote-color);
-            color: var(--text-color);
-            padding: 4px 10px;
-            cursor: pointer;
-        }
-        .saved-item .actions button:hover { border-color: var(--accent-color); }
-        .saved-item .full { display: none; margin-top: 0.6em; border-top: 1px dotted var(--sidenote-color); padding-top: 0.6em; }
+        .tcard .cname { font-family: 'Cormorant Garamond', serif; font-size: 1em; font-weight: 600; line-height: 1.25; text-align: center; margin-top: 10px; min-height: 2.5em; }
+        .tcard .cname .revtag { color: var(--sidenote-color); font-family: 'Inter', sans-serif; font-size: .72em; font-weight: 400; }
+        .interp:not(:empty) { margin: 1.6em 0 0; padding: 28px 30px; border-radius: 14px; background: rgba(0,0,0,0.2); border: 1px solid var(--border); }
+        [data-theme="light"] .interp:not(:empty) { background: #fff; }
+        .interp p { margin: 0 0 .9em; }
+        .interp .closer { color: var(--accent-color); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.2em; margin: 1.2em 0 0; padding-top: 1em; border-top: 1px solid var(--border); }
+
+        #saved-empty { color: var(--muted); }
+        #saved-list { display: grid; gap: 12px; }
+        .saved-item { border: 1px solid var(--border); border-radius: 14px; padding: 18px 20px; background: var(--surface-2); }
+        .saved-item .meta { font-size: .74em; letter-spacing: .06em; text-transform: uppercase; color: var(--sidenote-color); }
+        .saved-item .q { margin: .35em 0; font-family: 'Cormorant Garamond', serif; font-size: 1.3em; font-weight: 600; }
+        .saved-item .cardsline { font-size: .86em; color: var(--muted); margin: .3em 0; }
+        .saved-item .actions { margin-top: .8em; display: flex; gap: 8px; }
+        .saved-item .actions button { font-family: 'Inter', sans-serif; font-size: .8em; padding: 6px 14px; border-radius: 999px; cursor: pointer; background: transparent; color: var(--text-color); border: 1px solid var(--border); }
+        .saved-item .actions button:hover { border-color: var(--accent-color); color: var(--accent-color); }
+        .saved-item .full { display: none; margin-top: .9em; padding-top: .9em; border-top: 1px solid var(--border); color: var(--muted); }
         .saved-item.open .full { display: block; }
 
-        footer {
-            margin-top: 3em;
-            padding: 20px 0;
-            border-top: 1px solid var(--text-color);
-            text-align: center;
-            font-size: 0.85em;
-            color: var(--sidenote-color);
-        }
+        #cta { text-align: center; padding: 56px 24px; }
+        #cta p { color: var(--muted); }
 
-        .social-links a {
-            margin: 0 10px;
-            font-size: 1.2em;
+        .theme-toggle {
+            position: fixed; bottom: 22px; right: 22px; z-index: 1000; width: 46px; height: 46px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; background: var(--bg-2); border: 1px solid var(--border); box-shadow: var(--shadow);
+        }
+        .theme-toggle i { font-size: 1.1em; color: var(--accent-color); }
+
+        footer { margin-top: 40px; padding: 28px 0 10px; border-top: 1px solid var(--border); text-align: center; font-size: .85em; color: var(--sidenote-color); }
+        .social-links { display: flex; justify-content: center; gap: 12px; margin-top: 10px; }
+        .social-links a { display: inline-grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--border); color: var(--muted); font-size: 1em; }
+        .social-links a:hover { color: var(--accent-color); border-color: var(--accent-color); }
+
+        @media (max-width: 760px) {
+            body { font-size: 16px; }
+            .container { padding: 0 16px 32px; }
+            .topnav { display: none; }
+            .hero { padding: 32px 0 28px; }
+            .panel, #reading.panel { padding: 26px 20px; border-radius: 16px; }
+            .grid-2 { grid-template-columns: 1fr; gap: 20px; }
+            .cards-grid { gap: 18px 10px; }
+            .tcard { width: 90px; }
+            .tcard .flip { width: 90px; height: 150px; }
+            .tcard .cname { font-size: .9em; }
+            .interp:not(:empty) { padding: 20px 18px; }
+            #draw-btn { width: 100%; }
+            .spread-btn { flex: 1 1 auto; }
         }
     </style>
 </head>
@@ -367,33 +287,46 @@
     </button>
 
     <div class="container">
-        <!-- Header -->
-        <h1>Free Tarot Readings: Jungian Archetypes & Cosmic Insights</h1>
-        <p class="tags" role="navigation" aria-label="Content tags">
-            <span>Tags:</span>
-            <a href="#tarot">tarot</a>
-            <span>|</span>
-            <a href="#jungian">Jungian psychology</a>
-            <span>|</span>
-            <a href="#mysticism">mysticism</a>
-        </p>
+        <header class="topbar">
+            <a class="brand" href="#introduction"><span class="brand-mark">&#10022;</span> The Free Tarot</a>
+            <nav class="topnav" aria-label="Main">
+                <a href="#reading">Reading</a>
+                <a href="#saved">Saved</a>
+                <a href="#tarot">Archetypes</a>
+                <a href="#jungian">Jung</a>
+            </nav>
+        </header>
 
-        <!-- Introduction -->
-        <section id="introduction">
-            <p>The Free Tarot explores <a href="#tarot">tarot</a> as a tool for self-discovery, rooted in <span class="popup">Carl Jung’s depth psychology<span class="popup-text">Carl Gustav Jung (1875–1961) developed analytical psychology, emphasizing archetypes and the collective unconscious.</span></span>. This site offers free tarot readings, cosmic spreads, and in-depth analysis, weaving stardust threads of archetype and symbol. <span class="sidenote">Tarot’s history spans centuries, evolving from a card game to a psychological tool.</span></p>
-            <p><a href="#reading">Begin your free tarot reading</a> to unveil your path.</p>
+        <!-- Header / Introduction -->
+        <section id="introduction" class="hero">
+            <p class="eyebrow">Free tarot &middot; Jungian insight</p>
+            <h1>Free Tarot Readings: <em>Jungian Archetypes</em> &amp; Cosmic Insights</h1>
+            <p class="lead">The Free Tarot explores <a href="#tarot">tarot</a> as a tool for self-discovery, rooted in <span class="popup" tabindex="0">Carl Jung’s depth psychology<span class="popup-text">Carl Gustav Jung (1875 to 1961) developed analytical psychology, emphasizing archetypes and the collective unconscious.</span></span>. This site offers free tarot readings, cosmic spreads, and in-depth analysis, weaving stardust threads of archetype and symbol.</p>
+            <div class="hero-cta">
+                <a class="btn" href="#reading">Begin your free tarot reading</a>
+                <a class="btn ghost" href="#jungian">Why Jung?</a>
+            </div>
+            <p class="tags" role="navigation" aria-label="Content tags">
+                <span>Tags:</span>
+                <a href="#tarot">tarot</a>
+                <span>|</span>
+                <a href="#jungian">Jungian psychology</a>
+                <span>|</span>
+                <a href="#mysticism">mysticism</a>
+            </p>
+            <span class="sidenote" style="max-width:520px;margin:1.6em auto 0;text-align:left">Tarot’s history spans centuries, evolving from a card game to a psychological tool.</span>
         </section>
 
-
         <!-- Reading Engine -->
-        <section id="reading">
+        <section id="reading" class="panel">
+            <p class="eyebrow">Your reading</p>
             <h2>Draw Your Cards</h2>
-            <p>The deck lives on this page now. Seventy-eight cards, three spreads, read entirely in your browser: nothing you ask leaves your device, and every reading is kept below so you can return to it. <span class="sidenote">Readings are stored only in this browser's local storage. Clear your site data and they return to the ether.</span></p>
+            <p class="intro">The deck lives on this page now. Seventy-eight cards, three spreads, read entirely in your browser: nothing you ask leaves your device, and every reading is kept below so you can return to it. <span class="sidenote">Readings are stored only in this browser's local storage. Clear your site data and they return to the ether.</span></p>
             <div class="reading-controls">
                 <label for="question-input">Whisper your question to the cosmos</label>
                 <input type="text" id="question-input" placeholder="love, work, the path..." maxlength="280">
                 <div class="spread-row" id="spread-row"></div>
-                <button id="draw-btn">&#127775; Unveil the spread &#127775;</button>
+                <button id="draw-btn">&#10022; Unveil the spread &#10022;</button>
                 <p class="draw-note" id="draw-note"></p>
             </div>
             <div class="cards-grid" id="cards-grid"></div>
@@ -401,32 +334,36 @@
         </section>
 
         <!-- Saved Readings -->
-        <section id="saved">
+        <section id="saved" class="panel">
+            <p class="eyebrow">Your journal</p>
             <h2>Your Saved Readings</h2>
             <p id="saved-empty">No readings kept yet. Draw one above; it will wait for you here.</p>
             <div id="saved-list"></div>
         </section>
 
         <!-- Personal Story Section -->
-        <section id="personal-story">
+        <section id="personal-story" class="panel">
+            <p class="eyebrow">From the maker</p>
             <h2>A Personal Journey</h2>
             <details>
                 <summary>Read my story</summary>
                 <div>
                     <p>Hey there, stumbler of all sorts,</p>
-                    <p>I made this because I faced a very personal problem that I needed insights into. I ended up using and using this website, to the point that it became an addiction. Instead of communicating clearly, I instead chose to wait, to wonder, and manifest the reality I wanted from a backseat. Beware, your intentions are all you have, but you must be the driver. Do things. Decide. And don't look back. <i>“Do what thou wilt”</i> <span class="sidenote">From Aleister Crowley’s Thelema, emphasizing self-discovery through action.</span> is rather a call to discover and fulfill one’s <span class="popup">True Will<span class="popup-text">In Thelema, True Will is one’s unique spiritual purpose, aligned with the universe’s harmony.</span></span>, one’s unique spiritual purpose. This involves aligning one’s actions with this inherent will, which leads to personal fulfillment and harmony with the universe.</p>
+                    <p>I made this because I faced a very personal problem that I needed insights into. I ended up using and using this website, to the point that it became an addiction. Instead of communicating clearly, I instead chose to wait, to wonder, and manifest the reality I wanted from a backseat. Beware, your intentions are all you have, but you must be the driver. Do things. Decide. And don't look back. <i>“Do what thou wilt”</i> <span class="sidenote">From Aleister Crowley’s Thelema, emphasizing self-discovery through action.</span> is rather a call to discover and fulfill one’s <span class="popup" tabindex="0">True Will<span class="popup-text">In Thelema, True Will is one’s unique spiritual purpose, aligned with the universe’s harmony.</span></span>, one’s unique spiritual purpose. This involves aligning one’s actions with this inherent will, which leads to personal fulfillment and harmony with the universe.</p>
                 </div>
             </details>
         </section>
 
+        <div class="grid-2">
         <!-- Tarot Cards Section -->
-        <section id="tarot">
+        <section id="tarot" class="panel">
+            <p class="eyebrow">The cards</p>
             <h2>Tarot Archetypes</h2>
             <p>Tarot cards are mirrors of the psyche, each embodying a <a href="#jungian">Jungian archetype</a>. Below are key cards:</p>
-            <ul>
-                <li><span class="popup">The Fool<span class="popup-text">Symbolizes new beginnings and the archetype of the innocent explorer.</span></span>: Embarks on a journey of discovery.</li>
-                <li><span class="popup">The Magician<span class="popup-text">Represents manifestation and the archetype of the creator.</span></span>: Channels cosmic energy.</li>
-                <li><span class="popup">The Star<span class="popup-text">Embodies hope and the archetype of the guide.</span></span>: Illuminates the path forward.</li>
+            <ul class="archetypes">
+                <li><span class="popup" tabindex="0">The Fool<span class="popup-text">Symbolizes new beginnings and the archetype of the innocent explorer.</span></span>: Embarks on a journey of discovery.</li>
+                <li><span class="popup" tabindex="0">The Magician<span class="popup-text">Represents manifestation and the archetype of the creator.</span></span>: Channels cosmic energy.</li>
+                <li><span class="popup" tabindex="0">The Star<span class="popup-text">Embodies hope and the archetype of the guide.</span></span>: Illuminates the path forward.</li>
             </ul>
             <details>
                 <summary>Expand for detailed analysis</summary>
@@ -437,9 +374,10 @@
         </section>
 
         <!-- Jungian Perspective Section -->
-        <section id="jungian">
+        <section id="jungian" class="panel">
+            <p class="eyebrow" id="mysticism">The psyche</p>
             <h2>Jungian Lens on Tarot</h2>
-            <p>Tarot transcends divination, serving as a <span class="popup">psychoanalytic tool<span class="popup-text">Psychoanalysis explores the unconscious mind, often through symbols.</span></span> to uncover subconscious patterns. Jung’s archetypes—universal symbols within the collective unconscious—resonate in each card’s imagery. <span class="sidenote">See Jung’s <i>Man and His Symbols</i> for more.</span></p>
+            <p>Tarot transcends divination, serving as a <span class="popup" tabindex="0">psychoanalytic tool<span class="popup-text">Psychoanalysis explores the unconscious mind, often through symbols.</span></span> to uncover subconscious patterns. Jung’s archetypes, universal symbols within the collective unconscious, resonate in each card’s imagery. <span class="sidenote">See Jung’s <i>Man and His Symbols</i> for more.</span></p>
             <details>
                 <summary>Expand for deeper insights</summary>
                 <div>
@@ -447,12 +385,13 @@
                 </div>
             </details>
         </section>
+        </div>
 
         <!-- CTA -->
-        <section id="cta">
+        <section id="cta" class="panel" style="margin-top:28px">
             <h2>Embark on Your Journey</h2>
             <p>Dive into tarot’s cosmic wisdom with a free reading.</p>
-            <p><a href="#reading">Start Your Free Tarot Reading Now</a></p>
+            <p><a class="btn" href="#reading">Start Your Free Tarot Reading Now</a></p>
         </section>
 
         <!-- Footer -->
@@ -671,21 +610,21 @@
             s += '<rect x="6" y="6" width="98" height="172" rx="4" fill="none" stroke="var(--sidenote-color)" stroke-width="0.5" opacity="0.6"/>';
             s += starsSVG(rnd, 10, 110, 184, 'var(--sidenote-color)');
             if (card.major) {
-                s += '<text x="55" y="26" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="13" fill="var(--accent-color)">' + ROMAN[card.idx] + '</text>';
+                s += '<text x="55" y="26" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="13" fill="var(--accent-color)">' + ROMAN[card.idx] + '</text>';
                 s += majorSigil(card.idx);
-                s += '<text x="55" y="168" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="7.5" fill="var(--text-color)">' + card.name.toUpperCase() + '</text>';
+                s += '<text x="55" y="168" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="7.5" fill="var(--text-color)">' + card.name.toUpperCase() + '</text>';
             } else {
                 var rank = RANKS[card.rankIdx][0];
                 var label = rank === 'Ace' ? 'A' : rank.length > 2 ? rank[0] : rank;
-                s += '<text x="16" y="24" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="' + SUITS[card.suit].color + '">' + label + '</text>';
-                s += '<text x="94" y="172" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="' + SUITS[card.suit].color + '" transform="rotate(180 94 168)">' + label + '</text>';
+                s += '<text x="16" y="24" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="12" fill="' + SUITS[card.suit].color + '">' + label + '</text>';
+                s += '<text x="94" y="172" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="12" fill="' + SUITS[card.suit].color + '" transform="rotate(180 94 168)">' + label + '</text>';
                 if (card.rankIdx <= 9) {
                     var n = card.rankIdx + 1;
                     if (n === 1) { s += glyph(card.suit, 55, 95, 1.6); }
                     else pipLayout(n).forEach(function (p) { s += glyph(card.suit, p[0], p[1], 0.62); });
                 } else {
                     s += glyph(card.suit, 55, 88, 1.45);
-                    s += '<text x="55" y="150" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="var(--text-color)">' + rank.toUpperCase() + '</text>';
+                    s += '<text x="55" y="150" text-anchor="middle" font-family="Cormorant Garamond, serif" font-weight="600" font-size="9" fill="var(--text-color)">' + rank.toUpperCase() + '</text>';
                 }
             }
             return s + '</svg>';
