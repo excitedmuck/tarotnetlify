@@ -155,6 +155,13 @@
 
         .hero { text-align: center; padding: 56px 0 40px; }
         .hero .lead { font-size: 1.15em; color: var(--muted); max-width: 640px; margin: 0 auto 1.6em; }
+        .verse { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.3em; line-height: 1.8; color: var(--text-color); max-width: 580px; margin: 0 auto 1.4em; }
+        .verse span { display: block; }
+        #support.panel { text-align: center; background: linear-gradient(180deg, rgba(201,169,110,0.09), var(--surface)); }
+        #support .ask { color: var(--muted); max-width: 540px; margin: 0 auto 1.8em; }
+        #support .thanks { font-size: .92em; color: var(--muted); margin-top: 1.5em; }
+        .nudge { font-size: .92em; color: var(--muted); margin: 2em 0 0; padding-top: 1.4em; border-top: 1px solid var(--border); display: none; }
+        .nudge.show { display: block; }
         .hero-cta { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 1.4em; }
         .btn, #draw-btn {
             display: inline-flex; align-items: center; gap: 10px; justify-content: center;
@@ -294,6 +301,7 @@
                 <a href="#saved">Saved</a>
                 <a href="#tarot">Archetypes</a>
                 <a href="#jungian">Jung</a>
+                <a href="#support">Support</a>
             </nav>
         </header>
 
@@ -301,6 +309,7 @@
         <section id="introduction" class="hero">
             <p class="eyebrow">Free tarot &middot; Jungian insight</p>
             <h1>Free Tarot Readings: <em>Jungian Archetypes</em> &amp; Cosmic Insights</h1>
+            <p class="verse"><span>In autopoeisis poetry of code and word,</span><span>I weave stardust threads to whisper truths absurd.</span></p>
             <p class="lead">The Free Tarot explores <a href="#tarot">tarot</a> as a tool for self-discovery, rooted in <span class="popup" tabindex="0">Carl Jung’s depth psychology<span class="popup-text">Carl Gustav Jung (1875 to 1961) developed analytical psychology, emphasizing archetypes and the collective unconscious.</span></span>. This site offers free tarot readings, cosmic spreads, and in-depth analysis, weaving stardust threads of archetype and symbol.</p>
             <div class="hero-cta">
                 <a class="btn" href="#reading">Begin your free tarot reading</a>
@@ -331,6 +340,7 @@
             </div>
             <div class="cards-grid" id="cards-grid"></div>
             <div class="interp" id="interp"></div>
+            <p class="nudge" id="nudge">If you found this reading helpful, <a href="#support">slip down the page and you might see molly</a> &#129392;, or be my x <a href="https://x.com/cacooleed" target="_blank" rel="noopener">@cacooleed</a> and hear my folly &#128521;&#129436;.</p>
         </section>
 
         <!-- Saved Readings -->
@@ -387,6 +397,16 @@
         </section>
         </div>
 
+        <!-- Support -->
+        <section id="support" class="panel" style="margin-top:28px">
+            <p class="eyebrow">Support the creator</p>
+            <h2>Bestow Me a <em>Molly</em></h2>
+            <p class="verse"><span>I’m a free bird in autopoeisis poetry of code and word,</span><span>I’m passionate about earth observation in deed and word,</span><span>I like helping you get answers truly absurd.</span></p>
+            <p class="ask">I’m trying to raise butterfly wings for my cacoon. If this app has helped you in any way, buy me a molly and give me a hug!</p>
+            <p><a class="btn" href="https://buymeacoffee.com/yashvinishz" target="_blank" rel="noopener">&#10022; Bestow Me a Molly &#10022;</a></p>
+            <p class="thanks">Your love means the world to me. So may you never run out of molly! &#129392;&#128521;</p>
+        </section>
+
         <!-- CTA -->
         <section id="cta" class="panel" style="margin-top:28px">
             <h2>Embark on Your Journey</h2>
@@ -396,7 +416,7 @@
 
         <!-- Footer -->
         <footer>
-            <p>© 2025 The Free Tarot. All rights reserved.</p>
+            <p>© 2026 The Free Tarot. Crafted with cosmic care.</p>
             <div class="social-links">
                 <a href="https://www.facebook.com/thefreetarot" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
                 <a href="https://www.twitter.com/thefreetarot" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -702,6 +722,7 @@
         var spreadRow = document.getElementById('spread-row');
         var drawBtn = document.getElementById('draw-btn');
         var drawNote = document.getElementById('draw-note');
+        var nudgeEl = document.getElementById('nudge');
         var grid = document.getElementById('cards-grid');
         var interpEl = document.getElementById('interp');
         var savedList = document.getElementById('saved-list');
@@ -793,6 +814,7 @@
             var paras = interpret(q, currentSpread, drawn);
             setTimeout(function () {
                 renderInterp(paras, interpEl);
+                if (nudgeEl) nudgeEl.classList.add('show');
                 drawNote.textContent = 'Saved below. Draw again whenever the question changes shape.';
                 var readings = loadReadings();
                 readings.unshift({
