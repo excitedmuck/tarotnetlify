@@ -1,0 +1,77 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { width:1200px; height:630px; background:#0d0b1a; overflow:hidden; font-family:'Inter',sans-serif; }
+  .wrap { position:relative; width:1200px; height:630px;
+          background:radial-gradient(900px 520px at 22% 18%, rgba(169,139,255,0.18), transparent 62%),
+                     radial-gradient(760px 480px at 84% 78%, rgba(217,181,106,0.14), transparent 60%),
+                     linear-gradient(170deg,#0d0b1a 0%,#15112a 100%); }
+  .frame { position:absolute; inset:26px; border:1px solid rgba(214,190,255,0.20); border-radius:10px; }
+  .frame:after { content:''; position:absolute; inset:9px; border:1px solid rgba(217,181,106,0.18); border-radius:6px; }
+  .stars { position:absolute; inset:0; }
+  .content { position:absolute; left:92px; top:132px; width:600px; }
+  .mark { font-family:'Cormorant Garamond',serif; font-size:19px; letter-spacing:.42em; text-transform:uppercase; color:#d9b56a; margin-bottom:26px; }
+  h1 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:82px; line-height:1.02; color:#ece6f7; letter-spacing:-0.01em; }
+  h1 em { font-style:italic; color:#d9b56a; }
+  .verse { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:26px; line-height:1.5; color:#b3a9c9; margin-top:26px; }
+  .meta { margin-top:34px; font-size:17px; letter-spacing:.14em; text-transform:uppercase; color:#8f86a8; }
+  .meta b { color:#e7c77d; font-weight:600; }
+  .cards { position:absolute; right:52px; top:134px; width:432px; height:400px; }
+  .card { position:absolute; width:184px; height:306px; border-radius:11px;
+          background:linear-gradient(160deg,#1b1533,#120f26);
+          border:1px solid rgba(217,181,106,0.38);
+          box-shadow:0 30px 60px -22px rgba(0,0,0,.75); }
+  .c1 { left:0px; top:56px; transform:rotate(-11deg); }
+  .c2 { left:124px; top:14px; transform:rotate(0deg); }
+  .c3 { left:248px; top:56px; transform:rotate(11deg); }
+  .card svg { position:absolute; inset:0; width:100%; height:100%; }
+</style></head>
+<body><div class="wrap">
+  <svg class="stars" viewBox="0 0 1200 630"></svg>
+  <div class="frame"></div>
+  <div class="content">
+    <p class="mark">The Free Tarot</p>
+    <h1>Free Tarot<br>Readings, <em>free</em><br>of sign-ups.</h1>
+    <p class="verse">I weave stardust threads<br>to whisper truths absurd.</p>
+    <p class="meta">78 cards &nbsp;·&nbsp; 3 spreads &nbsp;·&nbsp; <b>freetarot.xyz</b></p>
+  </div>
+  <div class="cards">
+    <div class="card c1"></div>
+    <div class="card c2"></div>
+    <div class="card c3"></div>
+  </div>
+</div>
+<script>
+  // starfield
+  var s = document.querySelector('.stars'), ns = 'http://www.w3.org/2000/svg', out = '';
+  function rnd(a){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }
+  var seed = 7;
+  for (var i=0;i<150;i++){ seed++;
+    var x=rnd(seed*13)*1200, y=rnd(seed*29)*630, r=0.6+rnd(seed*7)*1.7, o=0.15+rnd(seed*17)*0.6;
+    out += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+r.toFixed(2)+'" fill="#ece6f7" opacity="'+o.toFixed(2)+'"/>';
+  }
+  s.innerHTML = out;
+  // card faces: sigil + numeral
+  var faces = [
+    { num:'XVII', pts:[[52,70],[92,44],[132,78],[108,132],[64,124]] },
+    { num:'I',    pts:[[60,56],[128,66],[96,118],[140,150],[54,140]] },
+    { num:'XXI',  pts:[[70,48],[134,86],[100,140],[58,110],[92,92]] }
+  ];
+  document.querySelectorAll('.card').forEach(function(card, i){
+    var f = faces[i], lines = '', dots = '';
+    f.pts.forEach(function(p, j){
+      dots += '<circle cx="'+p[0]+'" cy="'+(p[1]+60)+'" r="2.6" fill="#e7c77d" opacity="0.95"/>';
+      if (j) { var q = f.pts[j-1]; lines += '<line x1="'+q[0]+'" y1="'+(q[1]+60)+'" x2="'+p[0]+'" y2="'+(p[1]+60)+'" stroke="#a98bff" stroke-width="1.1" opacity="0.6"/>'; }
+    });
+    card.innerHTML = '<svg viewBox="0 0 184 306">'
+      + '<rect x="7" y="7" width="170" height="292" rx="7" fill="none" stroke="rgba(217,181,106,0.3)" stroke-width="1"/>'
+      + lines + dots
+      + '<text x="92" y="268" text-anchor="middle" font-family="Cormorant Garamond, serif" font-size="27" fill="#d9b56a" letter-spacing="3">'+f.num+'</text>'
+      + '</svg>';
+  });
+</script>
+</body></html>

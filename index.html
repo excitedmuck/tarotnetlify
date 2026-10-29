@@ -4,15 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Meta Description (Optimized for Keywords) -->
-    <meta name="description" content="Discover free tarot readings and Jungian tarot insights at The Free Tarot. Explore cosmic spreads, archetypes, and mystical wisdom for self-discovery.">
+    <meta name="description" content="Free tarot readings with no sign-up and no account. Draw a 78-card deck in your browser: three-card, elemental and Celtic Cross spreads, read through Jungian archetypes. Your question never leaves your device.">
     <meta name="keywords" content="free tarot readings, Jungian tarot, tarot insights, cosmic spreads, psychology">
     <meta name="author" content="The Free Tarot">
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="The Free Tarot | Jungian Tarot Analysis">
-    <meta property="og:description" content="Dive into free tarot readings with Jungian insights and cosmic spreads at The Free Tarot.">
-    <meta property="og:image" content="https://freetarot.xyz/static/images/og-image.jpg">
+    <meta property="og:site_name" content="The Free Tarot">
+    <meta property="og:locale" content="en_GB">
+    <meta property="og:title" content="Free Tarot Readings, no sign-up | The Free Tarot">
+    <meta property="og:description" content="A 78-card deck, three spreads and a Jungian reading, all in your browser. No account, no email, and your question never leaves your device.">
+    <meta property="og:image" content="https://freetarot.xyz/static/images/og.png?v=1">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The Free Tarot: three tarot cards with constellation sigils on a night-sky field.">
     <meta property="og:url" content="https://freetarot.xyz/">
     <meta property="og:type" content="website">
+
+    <!-- Twitter / X card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Free Tarot Readings, no sign-up | The Free Tarot">
+    <meta name="twitter:description" content="A 78-card deck, three spreads and a Jungian reading, all in your browser. No account, no email, and your question never leaves your device.">
+    <meta name="twitter:image" content="https://freetarot.xyz/static/images/og.png?v=1">
+    <meta name="twitter:image:alt" content="The Free Tarot: three tarot cards with constellation sigils on a night-sky field.">
+    <meta name="twitter:creator" content="@cacooleed">
     <!-- Canonical Tag -->
     <link rel="canonical" href="https://freetarot.xyz/">
     <!-- Favicon (PNG relative to deployment root) -->
@@ -31,36 +44,81 @@
       "@context": "https://schema.org",
       "@graph": [
         {
+          "@type": "WebSite",
+          "@id": "https://freetarot.xyz/#website",
+          "name": "The Free Tarot",
+          "alternateName": "Free Tarot",
+          "url": "https://freetarot.xyz/",
+          "inLanguage": "en-GB",
+          "description": "Free tarot readings with no sign-up, read through Jungian archetypes, drawn entirely in your browser.",
+          "publisher": { "@id": "https://freetarot.xyz/#org" }
+        },
+        {
           "@type": "Organization",
+          "@id": "https://freetarot.xyz/#org",
           "name": "The Free Tarot",
           "url": "https://freetarot.xyz/",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://freetarot.xyz/static/images/og.png",
+            "width": 1200,
+            "height": 630
+          },
           "sameAs": [
             "https://www.facebook.com/thefreetarot",
-            "https://www.twitter.com/thefreetarot",
-            "https://www.instagram.com/thefreetarot"
+            "https://www.instagram.com/thefreetarot",
+            "https://x.com/cacooleed"
           ]
         },
         {
-          "@type": "Article",
-          "headline": "The Free Tarot: Jungian Archetypes & Cosmic Insights",
-          "description": "Explore free tarot readings and Jungian tarot insights at The Free Tarot. Discover cosmic spreads and archetypes for self-discovery.",
-          "author": {
-            "@type": "Person",
-            "name": "The Free Tarot"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "The Free Tarot",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://freetarot.xyz/static/images/og-image.jpg"
+          "@type": "WebApplication",
+          "@id": "https://freetarot.xyz/#app",
+          "name": "The Free Tarot reading engine",
+          "url": "https://freetarot.xyz/#reading",
+          "applicationCategory": "LifestyleApplication",
+          "operatingSystem": "Any modern web browser",
+          "browserRequirements": "Requires JavaScript. No account or installation.",
+          "description": "Draw a full 78-card tarot deck in the browser across three spreads: three-card, elemental and Celtic Cross. Readings are interpreted through Jungian archetypes and saved locally to the device.",
+          "featureList": [
+            "78-card deck with reversals",
+            "Three-card, elemental and Celtic Cross spreads",
+            "Jungian interpretation with a synthesis reading",
+            "Readings saved in the browser, never sent to a server"
+          ],
+          "isAccessibleForFree": true,
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "GBP" },
+          "publisher": { "@id": "https://freetarot.xyz/#org" }
+        },
+        {
+          "@type": "FAQPage",
+          "@id": "https://freetarot.xyz/#faq",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Is the tarot reading really free?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Yes. No account, no email, no card, no credits. The whole deck runs on the page. If it helps you, there is a tip jar at the bottom, and that is the only ask." }
+            },
+            {
+              "@type": "Question",
+              "name": "Do I need to sign up or give an email address?",
+              "acceptedAnswer": { "@type": "Answer", "text": "No. There is no login anywhere on this site and nothing to subscribe to. Type your question, pick a spread, draw." }
+            },
+            {
+              "@type": "Question",
+              "name": "Where does my question go, and who can see my readings?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Nowhere, and nobody. The deck is shuffled in your browser and the reading is written there too. Your question is never sent to a server, and saved readings live in this browser's local storage on your own device. Clear your site data and they are gone." }
+            },
+            {
+              "@type": "Question",
+              "name": "Which tarot spreads can I draw?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Three: the three-card spread for past, present and future; the five-card elemental spread for fire, water, air, earth and spirit; and the ten-card Celtic Cross for a question that needs the long answer." }
+            },
+            {
+              "@type": "Question",
+              "name": "Does tarot actually predict the future?",
+              "acceptedAnswer": { "@type": "Answer", "text": "Not here. The cards are read as a Jungian mirror: archetypes that give your own situation a shape you can look at. The reading tells you what you are already circling. What you do about it is yours." }
             }
-          },
-          "datePublished": "2025-06-20",
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https://freetarot.xyz/"
-          }
+          ]
         }
       ]
     }
@@ -155,6 +213,9 @@
 
         .hero { text-align: center; padding: 56px 0 40px; }
         .hero .lead { font-size: 1.15em; color: var(--muted); max-width: 640px; margin: 0 auto 1.6em; }
+        .faq h3 { font-size: 1.25em; margin: 1.6em 0 .35em; color: var(--accent-color); }
+        .faq h3:first-child { margin-top: .6em; }
+        .faq p { color: var(--muted); max-width: 680px; margin: 0; }
         .verse { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.3em; line-height: 1.8; color: var(--text-color); max-width: 580px; margin: 0 auto 1.4em; }
         .verse span { display: block; }
         #support.panel { text-align: center; background: linear-gradient(180deg, rgba(201,169,110,0.09), var(--surface)); }
@@ -301,6 +362,7 @@
                 <a href="#saved">Saved</a>
                 <a href="#tarot">Archetypes</a>
                 <a href="#jungian">Jung</a>
+                <a href="#faq">FAQ</a>
                 <a href="#support">Support</a>
             </nav>
         </header>
@@ -397,6 +459,28 @@
         </section>
         </div>
 
+        <!-- FAQ -->
+        <section id="faq" class="panel" style="margin-top:28px">
+            <p class="eyebrow">Questions</p>
+            <h2>Before You Draw</h2>
+            <div class="faq">
+                <h3>Is the tarot reading really free?</h3>
+                <p>Yes. No account, no email, no card, no credits. The whole deck runs on this page. If it helps you, there is a tip jar below, and that is the only ask.</p>
+
+                <h3>Do I need to sign up?</h3>
+                <p>No. There is no login anywhere on this site and nothing to subscribe to. Type your question, pick a spread, draw.</p>
+
+                <h3>Where does my question go, and who can see my readings?</h3>
+                <p>Nowhere, and nobody. The deck is shuffled in your browser and the reading is written there too. Your question is never sent to a server, and saved readings sit in this browser’s local storage on your own device. Clear your site data and they return to the ether.</p>
+
+                <h3>Which spreads can I draw?</h3>
+                <p>Three. The three-card spread for past, present and future. The five-card elemental spread for fire, water, air, earth and spirit. The ten-card Celtic Cross for a question that needs the long answer.</p>
+
+                <h3>Does tarot actually predict the future?</h3>
+                <p>Not here. The cards are read as a Jungian mirror: archetypes that give your own situation a shape you can look at. The reading tells you what you were already circling. What you do about it is yours.</p>
+            </div>
+        </section>
+
         <!-- Support -->
         <section id="support" class="panel" style="margin-top:28px">
             <p class="eyebrow">Support the creator</p>
@@ -419,7 +503,7 @@
             <p>© 2026 The Free Tarot. Crafted with cosmic care.</p>
             <div class="social-links">
                 <a href="https://www.facebook.com/thefreetarot" aria-label="Facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.twitter.com/thefreetarot" aria-label="Twitter" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://x.com/cacooleed" aria-label="X" rel="noopener" target="_blank"><i class="fab fa-twitter"></i></a>
                 <a href="https://www.instagram.com/thefreetarot" aria-label="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
             </div>
         </footer>
